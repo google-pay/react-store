@@ -16,18 +16,41 @@
 
 import './Cart.css';
 import { Button, Typography } from '@material-ui/core';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { CartContext } from './CartContext';
 import CartItem from './CartItem';
+import GooglePayButton from '@google-pay/button-react';
 import { StoreData } from '../data/store-data';
+import { buildPaymentRequest } from '../google-pay-configuration';
 import { useHistory } from 'react-router-dom';
 
 interface Props {}
 
 const Cart: React.FC<Props> = props => {
-  const { cart } = useContext(CartContext);
+  const { cart, setCart } = useContext(CartContext);
+  const [paymentRequest, setPaymentRequest] = useState(buildPaymentRequest([]));
   const cartSize = StoreData.getCartSize(cart);
   const history = useHistory();
+
+  useEffect(() => {
+    Object.assign(
+      paymentRequest,
+      buildPaymentRequest(
+        cart.map(cartItem => ({
+          label: `${cartItem.item.title} (${cartItem.size}) x ${cartItem.quantity}`,
+          price: (cartItem.item.price * cartItem.quantity).toFixed(2),
+          type: 'LINE_ITEM',
+        })),
+      ),
+    );
+    setPaymentRequest(paymentRequest);
+  }, [cart, paymentRequest]);
+
+  function handleLoadPaymentData(paymentData: google.payments.api.PaymentData) {
+    console.log('Payment data', paymentData);
+    setCart([]);
+    history.push('/confirm');
+  }
 
   return (
     <div className="Cart">
@@ -47,6 +70,13 @@ const Cart: React.FC<Props> = props => {
         </span>
       </div>
       <div className="buttons">
+        <GooglePayButton
+          environment="TEST"
+          buttonSizeMode="fill"
+          paymentRequest={paymentRequest}
+          onLoadPaymentData={handleLoadPaymentData}
+          onError={error => console.error(error)}
+        />
         <Button variant="outlined" onClick={() => history.push('/checkout')}>
           Checkout
         </Button>
