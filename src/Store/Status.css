@@ -1,10 +1,17 @@
 .Confirmation, .Error {
   margin: 20px;
   text-align: left;
+  display: flex;
+  flex-direction: column;
 }
 
 .Confirmation p, .Error p {
   margin: 10px 0;
+}
+
+.Confirmation .content, .Error .content {
+  max-width: 500px;
+  margin: 10px auto;
 }
 
 .Confirmation .buttons, .Error .buttons {
