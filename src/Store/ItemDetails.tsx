@@ -12,7 +12,7 @@ function unescapeHtml(text: string) {
   return elem.textContent || '';
 }
 
-const ItemDetails: React.FC<any> = (props) => {
+export default function ItemDetails() {
   const storeData = new StoreData();
   const query = qs.parse(window.location.search.replace(/^\?/, ''));
   const params = useParams<any>();
@@ -80,5 +80,3 @@ const ItemDetails: React.FC<any> = (props) => {
       : <div className="ItemDetails"></div>
   );
 }
-
-export default ItemDetails;
