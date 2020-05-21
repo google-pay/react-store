@@ -40,7 +40,9 @@ const CartItem: React.FC<Props> = (props) => {
 
   return (
     <Card className="cart-item-card" elevation={2}>
-      <img src={props.cartItem.item.image} alt={props.cartItem.item.title} className="cart-item-image" />
+      <Link to={`/list/${props.cartItem.item.category}/${props.cartItem.item.name}?size=${props.cartItem.size}`}>
+        <img src={props.cartItem.item.image} alt={props.cartItem.item.title} className="cart-item-image" />
+      </Link>
       <CardContent className="cart-item-content">
         <div className="first-row">
           <Typography component="div" className="title">
