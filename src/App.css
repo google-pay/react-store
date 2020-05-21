@@ -87,3 +87,7 @@
 .App-header + * {
   margin-top: 80px;
 }
+
+.google-pay-button-container {
+  height: 40px;
+}
