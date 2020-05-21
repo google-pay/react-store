@@ -37,6 +37,7 @@
 
 .Cart .buttons > * {
   width: 100%;
+  margin: 4px 0;
 }
 
 .Cart .cart-items {

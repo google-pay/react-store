@@ -20,6 +20,8 @@ import { ItemDetails as Item, StoreData } from '../data/store-data';
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { CartContext } from './CartContext';
+import GooglePayButton from '@google-pay/button-react';
+import { buildPaymentRequest } from '../google-pay-configuration';
 import qs from 'querystring';
 
 function unescapeHtml(text: string) {
@@ -35,6 +37,7 @@ export default function ItemDetails() {
   const [item, setItem] = useState<Item>();
   const [size, setSize] = useState((query.size as string) || 'M');
   const [quantity, setQuantity] = useState(1);
+  const [paymentRequest, setPaymentRequest] = useState(buildPaymentRequest([]));
   const [snackOpen, setSnackOpen] = useState(false);
   const history = useHistory();
 
@@ -43,6 +46,24 @@ export default function ItemDetails() {
   useEffect(() => {
     storeData.getItem(params.listId, params.itemId).then(data => setItem(data));
   }, [params, storeData]);
+
+  useEffect(() => {
+    Object.assign(
+      paymentRequest,
+      buildPaymentRequest(
+        item
+          ? [
+              {
+                label: `${item.title} (${size}) x ${quantity}`,
+                price: (item.price * quantity).toFixed(2),
+                type: 'LINE_ITEM',
+              },
+            ]
+          : [],
+      ),
+    );
+    setPaymentRequest(paymentRequest);
+  }, [item, size, quantity, paymentRequest]);
 
   function addToCart() {
     if (item) {
@@ -54,6 +75,11 @@ export default function ItemDetails() {
 
   function handleSnackClose() {
     setSnackOpen(false);
+  }
+
+  function handleLoadPaymentData(paymentData: google.payments.api.PaymentData) {
+    console.log('Payment data', paymentData);
+    history.push('/confirm');
   }
 
   return (
@@ -114,6 +140,13 @@ export default function ItemDetails() {
                 </Typography>
               </div>
               <div className="buttons">
+                <GooglePayButton
+                  environment="TEST"
+                  buttonSizeMode="fill"
+                  paymentRequest={paymentRequest}
+                  onLoadPaymentData={handleLoadPaymentData}
+                  onError={error => console.error(error)}
+                />
                 <Button variant="outlined" onClick={addToCart}>
                   Add to Cart
                 </Button>
