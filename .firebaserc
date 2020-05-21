@@ -1,0 +1,5 @@
+{
+  "projects": {
+    "default": "payments-react-store"
+  }
+}
