@@ -30,7 +30,7 @@ const categories: CategoryDetails[] = [
   },
   {
     name: 'ladies_outerwear',
-    title: 'Ladies Outerwear',
+    title: 'Lady\'s Outerwear',
     image: '/images/ladies_outerwear.jpg',
   },
   {
@@ -40,7 +40,7 @@ const categories: CategoryDetails[] = [
   },
   {
     name: 'ladies_tshirts',
-    title: 'Ladies T-Shirts',
+    title: 'Lady\'s T-Shirts',
     image: '/images/ladies_tshirts.jpg',
   }
 ];
