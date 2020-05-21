@@ -13,7 +13,7 @@ const Checkout: React.FC<Props> = () => {
 
   function handleCheckout() {
     setCart([]);
-    history.push('/');
+    history.push('/confirm');
   }
 
   return (
