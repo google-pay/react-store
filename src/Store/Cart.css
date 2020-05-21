@@ -1,0 +1,98 @@
+.Cart {
+  margin: 20px;
+  text-align: center;
+}
+
+.Cart .total {
+  margin: 20px 0;
+  font-weight: bold;
+  text-align: center;
+}
+
+.Cart .total > * {
+  display: inline-block;
+  margin: 10px;
+}
+
+.Cart .buttons {
+  margin: 20px auto;
+  max-width: 500px;
+}
+
+.Cart .buttons > * {
+  width: 100%;
+}
+
+.Cart .cart-items {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  margin: 20px 0;
+}
+
+.cart-item-card {
+  margin: 5px 0;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+}
+
+.cart-item-image {
+  width: 60px;
+  align-self: flex-start;
+  margin-top: 5px;
+}
+
+.cart-item-card .cart-item-content {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+  width: 100%;
+}
+
+.cart-item-card .cart-item-content:last-child {
+  padding-bottom: 10px;
+}
+
+.cart-item-card .first-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: stretch;
+}
+
+.cart-item-card .first-row .title {
+  flex-grow: 1;
+}
+
+.cart-item-card .first-row .title a {
+  color: #000;
+  text-decoration: none;
+}
+
+.cart-item-card .first-row .remove {
+  color: rgba(0, 0, 0, 0.4);
+  flex-grow: 0;
+  margin: -12px;
+}
+
+.cart-item-card .second-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: stretch;
+}
+
+.cart-item-card .second-row .label {
+  margin-top: 6px;
+  margin-right: 10px;
+}
+
+.cart-item-card .second-row .input {
+  margin-right: 20px;
+}
+
+.cart-item-card .second-row .amount {
+  flex-grow: 1;
+  text-align: right;
+  margin-right: 0;
+}

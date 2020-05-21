@@ -1,0 +1,13 @@
+.Confirmation, .Error {
+  margin: 20px;
+  text-align: left;
+}
+
+.Confirmation p, .Error p {
+  margin: 10px 0;
+}
+
+.Confirmation .buttons, .Error .buttons {
+  margin-top: 20px;
+  text-align: right;
+}

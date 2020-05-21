@@ -1,0 +1,15 @@
+.category-link {
+  text-decoration: none;
+}
+
+.category-card {
+  margin: 10px;
+}
+
+.category-image {
+  height: 200px;
+}
+
+.category-card .category-content, .category-card .category-content:last-child {
+  padding: 10px;
+}

@@ -2,37 +2,72 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.heading {
+  flex-grow: 1;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.heading a {
+  text-decoration: none;
+  color: inherit;
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  position: fixed;
+  top: 0;
+  text-align: center;
+  background-color: #ffff;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  font-size: 16px;
+  color: #000;
+  width: 100vw;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
-.App-link {
-  color: #61dafb;
+.App-header .Header {
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 20px 16px;
+  display: flex;
+  position: relative;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.App-header .Header .title {
+  flex: 1;
+  flex-basis: 0.01px;
+}
+
+.App-header a {
+  text-decoration: none;
+  color: #000;
+}
+
+.App-header > .Navigation {
+  display: flex;
+  flex-direction: row;
+  font-size: 13px;
+  padding: 0;
+  margin: 0;
+}
+
+.App-header > .Navigation li {
+  list-style: none;
+  margin: 10px;
+  padding: 2px;
+}
+
+.App-header > .Navigation a {
+  display: block;
+  padding: 2px;
+  font-weight: 500;
+}
+
+.App-header > .Navigation a.active {
+  border-bottom: 2px solid #000;
+}
+
+.App-header + * {
+  margin-top: 80px;
 }

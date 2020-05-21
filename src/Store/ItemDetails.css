@@ -1,0 +1,53 @@
+.ItemDetails {
+  text-align: left;
+  margin: 20px;
+}
+
+.ItemDetails .container {
+  max-width: 1000px;
+  margin: auto;
+}
+
+.ItemDetails .content {
+  margin-top: 10px;
+}
+
+.item-details-image {
+  width: 100%;
+  text-align: center;
+  display: block;
+  margin: auto;
+}
+
+.ItemDetails .pickers {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 0;
+}
+
+.ItemDetails .pickers .field-set {
+  display: flex;
+  flex-direction: row;
+  padding: 10px 0;
+}
+
+.ItemDetails .pickers .field-set .label {
+  margin-top: 6px;
+  width: 40%;
+}
+
+.ItemDetails .pickers .field-set .input {
+  flex-grow: 1;
+}
+
+.ItemDetails .description {
+  margin-bottom: 30px;
+}
+
+.ItemDetails .description h6 {
+  margin-bottom: 10px;
+}
+
+.ItemDetails .buttons > * {
+  width: 100%;
+}
