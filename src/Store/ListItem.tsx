@@ -13,7 +13,7 @@ const ListItem: React.FC<Props> = (props) => {
   
   return (
     <Link to={`/list/${params.listId}/${props.item.name}`} className="list-item-link">
-      <Card className="list-item-card" elevation={5}>
+      <Card className="list-item-card" elevation={3}>
         <CardMedia image={props.item.image} title={props.item.title} className="list-item-image" />
         <CardContent className="list-item-content">
           <Typography component="div" className="title">{props.item.title}</Typography>

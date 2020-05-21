@@ -13,7 +13,7 @@
 }
 
 .list-item-card {
-  margin: 10px;
+  margin: 5px;
   width: 180px;
   flex-grow: 1;
   display: flex;
