@@ -1,6 +1,7 @@
 .Checkout {
-  margin: 20px;
+  margin: 20px auto;
   text-align: left;
+  max-width: 1000px;
 }
 
 .Checkout .buttons {
@@ -10,4 +11,8 @@
 
 .Checkout .buttons > * {
   width: 100%;
+}
+
+.Checkout .checkout-grid {
+  padding: 0 20px;
 }

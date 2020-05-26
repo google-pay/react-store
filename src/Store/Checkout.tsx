@@ -18,7 +18,7 @@ const Checkout: React.FC<Props> = () => {
 
   return (
     <div className="Checkout">
-      <Grid container spacing={5}>
+      <Grid container spacing={5} className="checkout-grid">
         <Grid item xs={12} sm={7}>
           <div className="shipping">
             <Typography variant="h6" gutterBottom>
