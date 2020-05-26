@@ -1,0 +1,26 @@
+name: deploy
+
+on:
+  push:
+    branches:
+      - google-pay
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js 10.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: 10.x
+        registry-url: https://npm.pkg.github.com/
+        scope: '@google-pay'
+    - run: npm install --global firebase-tools
+    - run: npm install
+      env:
+        NODE_AUTH_TOKEN: ${{secrets.PACKAGE_TOKEN}}
+    - run: firebase deploy
+      env:
+        FIREBASE_TOKEN: ${{secrets.FIREBASE_TOKEN}}
