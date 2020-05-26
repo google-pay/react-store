@@ -18,10 +18,10 @@ import './ItemDetails.css';
 import { Button, Grid, InputLabel, MenuItem, Select, Snackbar, Typography } from '@material-ui/core';
 import { ItemDetails as Item, StoreData } from '../data/store-data';
 import React, { useContext, useEffect, useMemo, useState } from 'react';
+import { buildPaymentRequest, getUpdatedPaymentData } from '../google-pay-configuration';
 import { useHistory, useParams } from 'react-router-dom';
 import { CartContext } from './CartContext';
 import GooglePayButton from '@google-pay/button-react';
-import { buildPaymentRequest } from '../google-pay-configuration';
 import qs from 'querystring';
 
 function unescapeHtml(text: string) {
@@ -146,6 +146,7 @@ export default function ItemDetails() {
                   paymentRequest={paymentRequest}
                   onLoadPaymentData={handleLoadPaymentData}
                   onError={error => console.error(error)}
+                  onPaymentDataChanged={paymentData => getUpdatedPaymentData(paymentRequest, paymentData)}
                 />
                 <Button variant="outlined" onClick={addToCart}>
                   Add to Cart

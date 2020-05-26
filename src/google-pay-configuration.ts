@@ -14,6 +14,30 @@
  * limitations under the License.
  */
 
+const shippingOptions = [
+  {
+    id: 'free',
+    label: 'Free shipping',
+    description: 'Arrives in 5 to 7 days',
+    price: 0,
+  },
+  {
+    id: 'express',
+    label: 'Express shipping',
+    description: '$5.00 - Arrives in 1 to 3 days',
+    price: 5,
+  },
+];
+
+const shippingOptionParameters: google.payments.api.ShippingOptionParameters = {
+  defaultSelectedOptionId: 'free',
+  shippingOptions: shippingOptions.map(o => ({
+    id: o.id,
+    label: o.label,
+    description: o.description,
+  })),
+};
+
 const paymentRequest: google.payments.api.PaymentDataRequest = {
   apiVersion: 2,
   apiVersionMinor: 0,
@@ -45,6 +69,10 @@ const paymentRequest: google.payments.api.PaymentDataRequest = {
     currencyCode: 'USD',
     countryCode: 'US',
   },
+  shippingAddressRequired: true,
+  shippingOptionParameters,
+  shippingOptionRequired: true,
+  callbackIntents: ['SHIPPING_ADDRESS', 'SHIPPING_OPTION'],
 };
 
 function calculateTotalPrice(displayItems: google.payments.api.DisplayItem[]) {
@@ -62,4 +90,32 @@ function buildPaymentRequest(displayItems: google.payments.api.DisplayItem[]): g
   };
 }
 
-export { buildPaymentRequest };
+function getUpdatedPaymentData(
+  paymentRequest: google.payments.api.PaymentDataRequest,
+  paymentData: google.payments.api.IntermediatePaymentData,
+): google.payments.api.PaymentDataRequestUpdate {
+  if (paymentData.shippingOptionData?.id) {
+    const shippingOption = shippingOptions.find(option => option.id === paymentData.shippingOptionData!.id);
+    if (shippingOption) {
+      const displayItems: google.payments.api.DisplayItem[] = [
+        ...(paymentRequest.transactionInfo.displayItems || []),
+        {
+          label: shippingOption.label,
+          price: shippingOption.price.toFixed(2),
+          type: 'SHIPPING_OPTION',
+        },
+      ];
+
+      return {
+        newTransactionInfo: {
+          ...paymentRequest.transactionInfo,
+          totalPrice: calculateTotalPrice(displayItems).toFixed(2),
+          displayItems,
+        },
+      };
+    }
+  }
+  return {};
+}
+
+export { buildPaymentRequest, getUpdatedPaymentData };

@@ -17,11 +17,11 @@
 import './Cart.css';
 import { Button, Typography } from '@material-ui/core';
 import React, { useContext, useEffect, useState } from 'react';
+import { buildPaymentRequest, getUpdatedPaymentData } from '../google-pay-configuration';
 import { CartContext } from './CartContext';
 import CartItem from './CartItem';
 import GooglePayButton from '@google-pay/button-react';
 import { StoreData } from '../data/store-data';
-import { buildPaymentRequest } from '../google-pay-configuration';
 import { useHistory } from 'react-router-dom';
 
 interface Props {}
@@ -76,6 +76,7 @@ const Cart: React.FC<Props> = props => {
           paymentRequest={paymentRequest}
           onLoadPaymentData={handleLoadPaymentData}
           onError={error => console.error(error)}
+          onPaymentDataChanged={paymentData => getUpdatedPaymentData(paymentRequest, paymentData)}
         />
         <Button variant="outlined" onClick={() => history.push('/checkout')}>
           Checkout
