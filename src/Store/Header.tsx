@@ -27,6 +27,10 @@ export default function Header() {
     setAnchorEl(null);
   };
 
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  }
+
   const handleCartClick = (event: React.MouseEvent) => {
     history.push('/cart');
   };
@@ -42,7 +46,7 @@ export default function Header() {
           anchorEl={anchorEl}
           keepMounted
           open={Boolean(anchorEl)}
-          onClose={handleMenuItemClick}
+          onClose={handleMenuClose}
         >
           {categories.map(cat => (
             <MenuItem key={cat.name} onClick={event => handleMenuItemClick(cat)}>{cat.title}</MenuItem>
