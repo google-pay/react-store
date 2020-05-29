@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { ItemDetails as Item, StoreData } from '../data/store-data';
-import { useParams } from 'react-router-dom';
-import { Button, Typography, InputLabel, Select, MenuItem, Grid } from '@material-ui/core';
+import { useParams, useHistory } from 'react-router-dom';
+import { Button, Typography, InputLabel, Select, MenuItem, Grid, Snackbar } from '@material-ui/core';
 import { CartContext } from './CartContext';
 import qs from 'querystring';
 import './ItemDetails.css';
@@ -19,6 +19,8 @@ export default function ItemDetails() {
   const [item, setItem] = useState<Item>();
   const [size, setSize] = useState((query.size as string) || 'M');
   const [quantity, setQuantity] = useState(1);
+  const [snackOpen, setSnackOpen] = useState(false);
+  const history = useHistory();
 
   const { setCart } = useContext(CartContext);
 
@@ -29,13 +31,20 @@ export default function ItemDetails() {
   function addToCart() {
     if (item) {
       storeData.addItemToCart(item, size, quantity);
-      setCart(storeData.getCart())
+      setCart(storeData.getCart());
+      setSnackOpen(true);
     }
   }
 
+  function handleSnackClose() {
+    setSnackOpen(false);
+  }
+
   return (
-    item
-      ? <div className="ItemDetails">
+    <div className="ItemDetails">
+      {
+        item &&
+        <>
           <Grid container className="container">
             <Grid item xs={12} sm={5}>
               <img className="item-details-image" src={item.largeImage} alt={item.title} />
@@ -76,7 +85,25 @@ export default function ItemDetails() {
               </div>
             </Grid>
           </Grid>
-        </div>
-      : <div className="ItemDetails"></div>
+          <Snackbar
+            ContentProps={{
+              className: 'snackbar-info',
+            }}
+            open={snackOpen}
+            autoHideDuration={5000}
+            anchorOrigin={{vertical: 'bottom', horizontal: 'center'}}
+            onClose={handleSnackClose}
+            message={`${item.title} added to cart.`}
+            action={
+              <>
+                <Button onClick={handleSnackClose}>Dismiss</Button>
+                <Button onClick={() => history.push('/cart')}>View cart</Button>
+                <Button onClick={() => history.push('/checkout')}>Checkout</Button>
+              </>
+            }
+          />
+        </>
+      }
+    </div>
   );
 }

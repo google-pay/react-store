@@ -51,3 +51,8 @@
 .ItemDetails .buttons > * {
   width: 100%;
 }
+
+.ItemDetails .snackbar-info {
+  color: #000;
+  background-color: #fff;
+}
