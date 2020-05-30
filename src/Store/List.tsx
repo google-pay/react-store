@@ -23,13 +23,11 @@ const List: React.FC<Props> = (props) => {
   }, [category, storeData]);
 
   return (
-    category
-      ? <div className="List">
-          {items.map(item => (
-            <ListItem key={item.name} item={item} />
-          ))}
-        </div>
-      : <div />
+    <div className="List">
+      {items.map(item => (
+        <ListItem key={item.name} item={item} />
+      ))}
+    </div>
   );
 }
 
