@@ -1,4 +1,12 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+*This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).*
+
+# Sample React T-Shirt Store
+
+The purpose this repository is to showcase the Google Pay integration in a store built with React.
+
+![Sample image of the react store](docs/images/react-store-sample-image.png)
+
+The [`master`](https://github.com/google-pay/react-store/tree/master) branch contains basic store functionality while the [`google-pay`](https://github.com/google-pay/react-store/tree/google-pay) branch contains the code changes and commits required to add Google Pay integration.
 
 ## Available Scripts
 
