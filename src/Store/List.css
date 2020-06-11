@@ -31,7 +31,7 @@
 
 .list-item-card {
   margin: 5px;
-  width: 180px;
+  width: 175px;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
@@ -39,7 +39,7 @@
 }
 
 .list-item-image {
-  height: 180px;
+  height: 175px;
   margin-top: 10px;
 }
 
