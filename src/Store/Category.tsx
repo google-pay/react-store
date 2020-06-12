@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Card, CardMedia, CardContent, Typography } from '@material-ui/core';
+import './Category.css';
+import { Card, CardContent, CardMedia, Typography } from '@material-ui/core';
 import { CategoryDetails } from '../data/store-data';
-import './Category.css'
+import { Link } from 'react-router-dom';
+import React from 'react';
 
-const Category: React.FC<CategoryDetails> = (props) => {
+const Category: React.FC<CategoryDetails> = props => {
   return (
     <Link to={`/list/${props.name}`} className="category-link">
       <Card className="category-card" elevation={5}>
@@ -31,6 +31,6 @@ const Category: React.FC<CategoryDetails> = (props) => {
       </Card>
     </Link>
   );
-}
+};
 
 export default Category;

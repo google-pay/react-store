@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { StorageProvider } from "./storage-provider";
+import { StorageProvider } from './storage-provider';
 
 export interface CategoryDetails {
   name: string;
@@ -41,24 +41,24 @@ export interface CartItemDetails {
 const categories: CategoryDetails[] = [
   {
     name: 'mens_outerwear',
-    title: 'Men\'s Outerwear',
+    title: "Men's Outerwear",
     image: '/images/mens_outerwear.jpg',
   },
   {
     name: 'ladies_outerwear',
-    title: 'Lady\'s Outerwear',
+    title: "Lady's Outerwear",
     image: '/images/ladies_outerwear.jpg',
   },
   {
     name: 'mens_tshirts',
-    title: 'Men\'s T-Shirts',
+    title: "Men's T-Shirts",
     image: '/images/mens_tshirts.jpg',
   },
   {
     name: 'ladies_tshirts',
-    title: 'Lady\'s T-Shirts',
+    title: "Lady's T-Shirts",
     image: '/images/ladies_tshirts.jpg',
-  }
+  },
 ];
 
 const itemCache = new Map<string, Promise<ItemDetails[]>>();

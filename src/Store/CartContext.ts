@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import React from 'react';
 import { CartItemDetails } from '../data/store-data';
+import React from 'react';
 
 let cart: CartItemDetails[] = [];
 
@@ -26,6 +26,4 @@ const CartContext = React.createContext({
   },
 });
 
-export {
-  CartContext,
-};
+export { CartContext };

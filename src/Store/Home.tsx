@@ -14,21 +14,23 @@
  * limitations under the License.
  */
 
-import React from 'react';
-import Category from './Category';
 import './Home.css';
+import Category from './Category';
 import { CategoryDetails } from '../data/store-data';
+import React from 'react';
 
 interface Props {
-  categories: CategoryDetails[],
+  categories: CategoryDetails[];
 }
 
-const Home: React.FC<Props> = (props) => {
+const Home: React.FC<Props> = props => {
   return (
     <div className="Home">
-      {props.categories.map(cat => <Category key={cat.name} {...cat}/>)}
+      {props.categories.map(cat => (
+        <Category key={cat.name} {...cat} />
+      ))}
     </div>
   );
-}
+};
 
 export default Home;

@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
-import React, { useContext } from 'react';
-import { Typography, Grid, TextField, FormControlLabel, Checkbox, Button } from '@material-ui/core';
-import { useHistory } from 'react-router-dom';
-import { CartContext } from './CartContext';
 import './Checkout.css';
+import { Button, Checkbox, FormControlLabel, Grid, TextField, Typography } from '@material-ui/core';
+import React, { useContext } from 'react';
+import { CartContext } from './CartContext';
+import { useHistory } from 'react-router-dom';
 
-interface Props {
-}
+interface Props {}
 
 const Checkout: React.FC<Props> = () => {
   const history = useHistory();
@@ -129,31 +128,13 @@ const Checkout: React.FC<Props> = () => {
             </Typography>
             <Grid container spacing={3}>
               <Grid item xs={12} md={12}>
-                <TextField
-                  required
-                  id="cardName"
-                  label="Name on card"
-                  fullWidth
-                  autoComplete="cc-name"
-                />
+                <TextField required id="cardName" label="Name on card" fullWidth autoComplete="cc-name" />
               </Grid>
               <Grid item xs={12} md={12}>
-                <TextField
-                  required
-                  id="cardNumber"
-                  label="Card number"
-                  fullWidth
-                  autoComplete="cc-number"
-                />
+                <TextField required id="cardNumber" label="Card number" fullWidth autoComplete="cc-number" />
               </Grid>
               <Grid item xs={12} md={12}>
-                <TextField
-                  required
-                  id="expDate"
-                  label="Expiry date"
-                  fullWidth
-                  autoComplete="cc-exp"
-                />
+                <TextField required id="expDate" label="Expiry date" fullWidth autoComplete="cc-exp" />
               </Grid>
               <Grid item xs={12} md={12}>
                 <TextField
@@ -176,10 +157,12 @@ const Checkout: React.FC<Props> = () => {
         </Grid>
       </Grid>
       <div className="buttons">
-        <Button variant="outlined" onClick={handleCheckout}>Submit</Button>
+        <Button variant="outlined" onClick={handleCheckout}>
+          Submit
+        </Button>
       </div>
     </div>
   );
-}
+};
 
 export default Checkout;

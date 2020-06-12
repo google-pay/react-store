@@ -14,22 +14,18 @@
  * limitations under the License.
  */
 
-import React, { useState, useEffect } from 'react';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-} from "react-router-dom";
-import Home from './Store/Home';
-import List from './Store/List';
-import ItemDetails from './Store/ItemDetails';
-import { StoreData, CategoryDetails, CartItemDetails } from './data/store-data';
-import { CartContext } from './Store/CartContext';
-import Header from './Store/Header';
+import './App.css';
+import { CartItemDetails, CategoryDetails, StoreData } from './data/store-data';
+import React, { useEffect, useState } from 'react';
+import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import Cart from './Store/Cart';
+import { CartContext } from './Store/CartContext';
 import Checkout from './Store/Checkout';
 import Confirmation from './Store/Confirmation';
-import './App.css';
+import Header from './Store/Header';
+import Home from './Store/Home';
+import ItemDetails from './Store/ItemDetails';
+import List from './Store/List';
 
 function App() {
   const storeData = new StoreData();

@@ -14,24 +14,25 @@
  * limitations under the License.
  */
 
-import React, { useContext } from 'react';
-import { CartItemDetails } from '../data/store-data';
-import { Card, CardContent, Typography, IconButton, InputLabel, Select, MenuItem } from '@material-ui/core';
-import { Close } from '@material-ui/icons';
 import './List.css';
+import { Card, CardContent, IconButton, InputLabel, MenuItem, Select, Typography } from '@material-ui/core';
+import React, { useContext } from 'react';
 import { CartContext } from './CartContext';
+import { CartItemDetails } from '../data/store-data';
+import { Close } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 
 interface Props {
   cartItem: CartItemDetails;
 }
 
-const CartItem: React.FC<Props> = (props) => {
+const CartItem: React.FC<Props> = props => {
   const { cart, setCart } = useContext(CartContext);
 
   function handleQuantityChange(quantity: number) {
-    const index = cart.findIndex(cartItem => cartItem.size === props.cartItem.size
-      && cartItem.item.name === props.cartItem.item.name);
+    const index = cart.findIndex(
+      cartItem => cartItem.size === props.cartItem.size && cartItem.item.name === props.cartItem.item.name,
+    );
 
     if (index !== -1) {
       const newCart = [...cart];
@@ -44,8 +45,9 @@ const CartItem: React.FC<Props> = (props) => {
   }
 
   function handleRemoveClick() {
-    const index = cart.findIndex(cartItem => cartItem.size === props.cartItem.size
-      && cartItem.item.name === props.cartItem.item.name);
+    const index = cart.findIndex(
+      cartItem => cartItem.size === props.cartItem.size && cartItem.item.name === props.cartItem.item.name,
+    );
 
     if (index !== -1) {
       const newCart = [...cart];
@@ -71,17 +73,30 @@ const CartItem: React.FC<Props> = (props) => {
           </IconButton>
         </div>
         <div className="second-row">
-          <InputLabel className="label" id="quantityLabel">Qty</InputLabel>
-          <Select className="input" labelId="quantityLabel" value={props.cartItem.quantity} onChange={event => handleQuantityChange(Number(event.target.value))}>
-            {new Array<number>(100).fill(0).map((val, index) => (<MenuItem key={index} value={index + 1}>{index + 1}</MenuItem>))}
+          <InputLabel className="label" id="quantityLabel">
+            Qty
+          </InputLabel>
+          <Select
+            className="input"
+            labelId="quantityLabel"
+            value={props.cartItem.quantity}
+            onChange={event => handleQuantityChange(Number(event.target.value))}
+          >
+            {new Array<number>(100).fill(0).map((val, index) => (
+              <MenuItem key={index} value={index + 1}>
+                {index + 1}
+              </MenuItem>
+            ))}
           </Select>
           <InputLabel className="label">Size</InputLabel>
           <InputLabel className="label">{props.cartItem.size}</InputLabel>
-          <InputLabel className="label amount">${(props.cartItem.quantity * props.cartItem.item.price).toFixed(2)}</InputLabel>
+          <InputLabel className="label amount">
+            ${(props.cartItem.quantity * props.cartItem.item.price).toFixed(2)}
+          </InputLabel>
         </div>
       </CardContent>
     </Card>
   );
-}
+};
 
 export default CartItem;

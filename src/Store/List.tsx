@@ -14,23 +14,23 @@
  * limitations under the License.
  */
 
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { ItemDetails, StoreData, CategoryDetails } from '../data/store-data';
+import { CategoryDetails, ItemDetails, StoreData } from '../data/store-data';
+import React, { useEffect, useState } from 'react';
 import ListItem from './ListItem';
+import { useParams } from 'react-router-dom';
 
 interface Props {
-  categories: CategoryDetails[],
+  categories: CategoryDetails[];
 }
 
-const List: React.FC<Props> = (props) => {
+const List: React.FC<Props> = props => {
   const storeData = new StoreData();
   const [items, setItems] = useState([] as ItemDetails[]);
   const [category, setCategory] = useState<CategoryDetails>();
-  const params = useParams<{listId: string}>();
+  const params = useParams<{ listId: string }>();
 
   useEffect(() => {
-    setCategory(props.categories.find(cat => cat.name === params.listId))
+    setCategory(props.categories.find(cat => cat.name === params.listId));
   }, [params.listId, props.categories]);
 
   useEffect(() => {
@@ -45,6 +45,6 @@ const List: React.FC<Props> = (props) => {
       ))}
     </div>
   );
-}
+};
 
 export default List;

@@ -14,15 +14,14 @@
  * limitations under the License.
  */
 
-import React from 'react';
-import { Typography, Button } from '@material-ui/core';
-import { useHistory } from 'react-router-dom';
 import './Status.css';
+import { Button, Typography } from '@material-ui/core';
+import React from 'react';
+import { useHistory } from 'react-router-dom';
 
-interface Props {
-}
+interface Props {}
 
-const Confirmation: React.FC<Props> = (props) => {
+const Confirmation: React.FC<Props> = props => {
   const history = useHistory();
 
   return (
@@ -36,11 +35,13 @@ const Confirmation: React.FC<Props> = (props) => {
           <em>This is for demo purposes only. You have not been charged, the order is not being processed.</em>
         </Typography>
         <div className="buttons">
-          <Button variant="text" onClick={() => history.push('/')}>Continue Shopping</Button>
+          <Button variant="text" onClick={() => history.push('/')}>
+            Continue Shopping
+          </Button>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default Confirmation;

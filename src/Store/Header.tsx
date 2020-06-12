@@ -14,22 +14,22 @@
  * limitations under the License.
  */
 
-import React, { useContext, useState, useEffect } from 'react';
-import { AppBar, Toolbar, IconButton, Typography, Badge, Menu, MenuItem } from '@material-ui/core';
-import { StoreData, CategoryDetails } from '../data/store-data';
-import { ShoppingCart, Menu as MenuIcon } from '@material-ui/icons';
-import { CartContext } from './CartContext';
-import { useHistory, Link } from 'react-router-dom';
 import './Header.css';
+import { AppBar, Badge, IconButton, Menu, MenuItem, Toolbar, Typography } from '@material-ui/core';
+import { CategoryDetails, StoreData } from '../data/store-data';
+import { Link, useHistory } from 'react-router-dom';
+import { Menu as MenuIcon, ShoppingCart } from '@material-ui/icons';
+import React, { useContext, useEffect, useState } from 'react';
+import { CartContext } from './CartContext';
 
 export default function Header() {
   const storeData = new StoreData();
   const { cart } = useContext(CartContext);
-  const [ anchorEl, setAnchorEl ] = useState<Element | null>(null);
+  const [anchorEl, setAnchorEl] = useState<Element | null>(null);
   const [categories, setCategories] = useState([] as CategoryDetails[]);
 
   const history = useHistory();
-  
+
   useEffect(() => {
     storeData.getCategories().then(data => setCategories(data));
   }, [storeData]);
@@ -45,7 +45,7 @@ export default function Header() {
 
   const handleMenuClose = () => {
     setAnchorEl(null);
-  }
+  };
 
   const handleCartClick = (event: React.MouseEvent) => {
     history.push('/cart');
@@ -57,21 +57,17 @@ export default function Header() {
         <IconButton edge="start" color="inherit" aria-label="menu" onClick={handleMenuClick}>
           <MenuIcon />
         </IconButton>
-        <Menu
-          id="simple-menu"
-          anchorEl={anchorEl}
-          keepMounted
-          open={Boolean(anchorEl)}
-          onClose={handleMenuClose}
-        >
+        <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleMenuClose}>
           {categories.map(cat => (
-            <MenuItem key={cat.name} onClick={event => handleMenuItemClick(cat)}>{cat.title}</MenuItem>
+            <MenuItem key={cat.name} onClick={event => handleMenuItemClick(cat)}>
+              {cat.title}
+            </MenuItem>
           ))}
         </Menu>
         <Typography variant="h6" className="heading">
           <Link to="/">Shop</Link>
         </Typography>
-        <IconButton edge="end"  color="inherit" aria-label="shopping cart" onClick={handleCartClick}>
+        <IconButton edge="end" color="inherit" aria-label="shopping cart" onClick={handleCartClick}>
           <Badge badgeContent={StoreData.getCartSize(cart)} color="secondary">
             <ShoppingCart />
           </Badge>

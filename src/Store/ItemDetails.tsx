@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import React, { useState, useEffect, useContext } from 'react';
+import './ItemDetails.css';
+import { Button, Grid, InputLabel, MenuItem, Select, Snackbar, Typography } from '@material-ui/core';
 import { ItemDetails as Item, StoreData } from '../data/store-data';
-import { useParams, useHistory } from 'react-router-dom';
-import { Button, Typography, InputLabel, Select, MenuItem, Grid, Snackbar } from '@material-ui/core';
+import React, { useContext, useEffect, useState } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
 import { CartContext } from './CartContext';
 import qs from 'querystring';
-import './ItemDetails.css';
 
 function unescapeHtml(text: string) {
   const elem = document.createElement('textarea');
@@ -58,8 +58,7 @@ export default function ItemDetails() {
 
   return (
     <div className="ItemDetails">
-      {
-        item &&
+      {item && (
         <>
           <Grid container className="container">
             <Grid item xs={12} sm={5}>
@@ -67,11 +66,20 @@ export default function ItemDetails() {
             </Grid>
             <Grid item xs={12} sm={6} className="content">
               <Typography variant="h5">{item.title}</Typography>
-              <Typography variant="body1" color="textSecondary">${item.price.toFixed(2)}</Typography>
+              <Typography variant="body1" color="textSecondary">
+                ${item.price.toFixed(2)}
+              </Typography>
               <div className="pickers">
                 <div className="field-set">
-                  <InputLabel className="label" id="sizeLabel">Size</InputLabel>
-                  <Select className="input" labelId="sizeLabel" value={size} onChange={event => setSize(event.target.value as string)}>
+                  <InputLabel className="label" id="sizeLabel">
+                    Size
+                  </InputLabel>
+                  <Select
+                    className="input"
+                    labelId="sizeLabel"
+                    value={size}
+                    onChange={event => setSize(event.target.value as string)}
+                  >
                     <MenuItem value="XS">XS</MenuItem>
                     <MenuItem value="S">S</MenuItem>
                     <MenuItem value="M">M</MenuItem>
@@ -80,8 +88,15 @@ export default function ItemDetails() {
                   </Select>
                 </div>
                 <div className="field-set">
-                  <InputLabel className="label" id="quantityLabel">Quantity</InputLabel>
-                  <Select className="input" labelId="quantityLabel" value={quantity} onChange={event => setQuantity(Number(event.target.value))}>
+                  <InputLabel className="label" id="quantityLabel">
+                    Quantity
+                  </InputLabel>
+                  <Select
+                    className="input"
+                    labelId="quantityLabel"
+                    value={quantity}
+                    onChange={event => setQuantity(Number(event.target.value))}
+                  >
                     <MenuItem value="1">1</MenuItem>
                     <MenuItem value="2">2</MenuItem>
                     <MenuItem value="3">3</MenuItem>
@@ -97,7 +112,9 @@ export default function ItemDetails() {
                 </Typography>
               </div>
               <div className="buttons">
-                <Button variant="outlined" onClick={addToCart}>Add to Cart</Button>
+                <Button variant="outlined" onClick={addToCart}>
+                  Add to Cart
+                </Button>
               </div>
             </Grid>
           </Grid>
@@ -107,7 +124,7 @@ export default function ItemDetails() {
             }}
             open={snackOpen}
             autoHideDuration={5000}
-            anchorOrigin={{vertical: 'bottom', horizontal: 'center'}}
+            anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
             onClose={handleSnackClose}
             message={`${item.title} added to cart.`}
             action={
@@ -119,7 +136,7 @@ export default function ItemDetails() {
             }
           />
         </>
-      }
+      )}
     </div>
   );
 }
