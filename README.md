@@ -6,7 +6,7 @@ The purpose this repository is to showcase the Google Pay integration in a store
 
 ![Sample image of the react store](docs/images/react-store-sample-image.png)
 
-The [`master`](https://github.com/google-pay/react-store/tree/master) branch contains basic store functionality while the [`google-pay`](https://github.com/google-pay/react-store/tree/google-pay) branch contains the code changes and commits required to add Google Pay integration.
+The [`main`](https://github.com/google-pay/react-store/tree/main) branch contains basic store functionality while the [`google-pay`](https://github.com/google-pay/react-store/tree/google-pay) branch contains the code changes and commits required to add Google Pay integration.
 
 ## Available Scripts
 
