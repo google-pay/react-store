@@ -17,6 +17,6 @@ jobs:
         node-version: 10.x
     - run: npm install --global firebase-tools
     - run: npm install
-    - run: firebase deploy
+    - run: firebase deploy --project ${{secrets.FIREBASE_PROJECT}}
       env:
         FIREBASE_TOKEN: ${{secrets.FIREBASE_TOKEN}}
