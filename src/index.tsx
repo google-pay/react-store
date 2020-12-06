@@ -15,6 +15,7 @@
  */
 
 import './index.css';
+import './spot-bootstrap';
 import * as serviceWorker from './serviceWorker';
 import App from './App';
 import React from 'react';
