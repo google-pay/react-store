@@ -45,6 +45,7 @@ const paymentRequest: google.payments.api.PaymentDataRequest = {
     currencyCode: 'USD',
     countryCode: 'US',
   },
+  shippingAddressRequired: true,
 };
 
 function calculateTotalPrice(displayItems: google.payments.api.DisplayItem[]) {
