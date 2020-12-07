@@ -62,7 +62,9 @@ export default function ItemDetails() {
         <>
           <Grid container className="container">
             <Grid item xs={12} sm={5}>
-              <img className="item-details-image" src={item.largeImage} alt={item.title} />
+              <div className="image-container">
+                <img className="item-details-image" src={item.largeImage} alt={item.title} />
+              </div>
             </Grid>
             <Grid item xs={12} sm={6} className="content">
               <Typography variant="h5">{item.title}</Typography>
