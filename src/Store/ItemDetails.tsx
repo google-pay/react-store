@@ -17,7 +17,7 @@
 import './ItemDetails.css';
 import { Button, Grid, InputLabel, MenuItem, Select, Snackbar, Typography } from '@material-ui/core';
 import { ItemDetails as Item, StoreData } from '../data/store-data';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { CartContext } from './CartContext';
 import qs from 'querystring';
@@ -29,7 +29,7 @@ function unescapeHtml(text: string) {
 }
 
 export default function ItemDetails() {
-  const storeData = new StoreData();
+  const storeData = useMemo(() => new StoreData(), []);
   const query = qs.parse(window.location.search.replace(/^\?/, ''));
   const params = useParams<any>();
   const [item, setItem] = useState<Item>();

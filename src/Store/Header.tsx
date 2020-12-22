@@ -19,11 +19,11 @@ import { AppBar, Badge, IconButton, Menu, MenuItem, Toolbar, Typography } from '
 import { CategoryDetails, StoreData } from '../data/store-data';
 import { Link, useHistory } from 'react-router-dom';
 import { Menu as MenuIcon, ShoppingCart } from '@material-ui/icons';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { CartContext } from './CartContext';
 
 export default function Header() {
-  const storeData = new StoreData();
+  const storeData = useMemo(() => new StoreData(), []);
   const { cart } = useContext(CartContext);
   const [anchorEl, setAnchorEl] = useState<Element | null>(null);
   const [categories, setCategories] = useState([] as CategoryDetails[]);

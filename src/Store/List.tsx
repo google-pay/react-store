@@ -15,7 +15,7 @@
  */
 
 import { CategoryDetails, ItemDetails, StoreData } from '../data/store-data';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import ListItem from './ListItem';
 import { useParams } from 'react-router-dom';
 
@@ -24,7 +24,7 @@ interface Props {
 }
 
 const List: React.FC<Props> = props => {
-  const storeData = new StoreData();
+  const storeData = useMemo(() => new StoreData(), []);
   const [items, setItems] = useState([] as ItemDetails[]);
   const [category, setCategory] = useState<CategoryDetails>();
   const params = useParams<{ listId: string }>();
