@@ -16,11 +16,12 @@
 
 import './ItemDetails.css';
 import { Button, Grid, InputLabel, MenuItem, Select, Snackbar, Typography } from '@material-ui/core';
-import { ItemDetails as Item, StoreData } from '../data/store-data';
+import { CartItemDetails, ItemDetails as Item, StoreData } from '../data/store-data';
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { CartContext } from './CartContext';
 import GooglePayButton from '@google-pay/button-react';
+import { StoreService } from '../data/store-service';
 import qs from 'querystring';
 
 function unescapeHtml(text: string) {
@@ -31,6 +32,7 @@ function unescapeHtml(text: string) {
 
 export default function ItemDetails() {
   const storeData = useMemo(() => new StoreData(), []);
+  const storeService = useMemo(() => new StoreService(), []);
   const query = qs.parse(window.location.search.replace(/^\?/, ''));
   const params = useParams<any>();
   const [item, setItem] = useState<Item>();
@@ -38,6 +40,11 @@ export default function ItemDetails() {
   const [quantity, setQuantity] = useState(1);
   const [snackOpen, setSnackOpen] = useState(false);
   const history = useHistory();
+  const cartItem: CartItemDetails = {
+    item: item!,
+    size,
+    quantity,
+  };
 
   const { setCart } = useContext(CartContext);
 
@@ -141,17 +148,24 @@ export default function ItemDetails() {
                       merchantId: '17613812255336763067',
                       merchantName: 'Demo Only (you will not be charged)',
                     },
-                    transactionInfo: {
-                      totalPriceStatus: 'FINAL',
-                      totalPriceLabel: 'Total',
-                      totalPrice: item.price.toFixed(2),
-                      currencyCode: 'USD',
-                      countryCode: 'US',
-                    },
+                    transactionInfo: storeService.getTransactionInfo([cartItem]),
+                    shippingAddressRequired: true,
+                    shippingOptionRequired: true,
+                    shippingOptionParameters: storeService.getShippingOptionParameters(),
+                    callbackIntents: ['SHIPPING_ADDRESS', 'SHIPPING_OPTION'],
                   }}
-                  onLoadPaymentData={paymentData => {
-                    console.log('TODO: send order to server', paymentData.paymentMethodData);
+                  onLoadPaymentData={async paymentData => {
+                    await storeService.processOrder([cartItem], paymentData);
                     history.push('/confirm');
+                  }}
+                  onPaymentDataChanged={paymentData => {
+                    return {
+                      newTransactionInfo: storeService.getTransactionInfo(
+                        [cartItem],
+                        paymentData.shippingAddress,
+                        paymentData.shippingOptionData,
+                      ),
+                    };
                   }}
                 />
                 <Button variant="outlined" onClick={addToCart}>
