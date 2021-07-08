@@ -29,40 +29,19 @@ const shippingOptions = [
     description: '$5.00 - Arrives in 1 to 3 days',
     price: 5,
   },
-  {
-    id: 'international',
-    label: 'International shipping',
-    description: '$25.00 - Arrives in 10 to 15 days',
-    price: 25,
-  },
 ];
 
 /** Mock Store Services */
 export class StoreService {
-  /** Mock service to retrieve a list of shipping options based on shipping address */
-  getShippingOptionParameters(address?: google.payments.api.Address): google.payments.api.ShippingOptionParameters {
-    if (address?.countryCode === 'US') {
-      return {
-        defaultSelectedOptionId: 'free',
-        shippingOptions: shippingOptions
-          .filter(o => o.id !== 'international')
-          .map(o => ({
-            id: o.id,
-            label: o.label,
-            description: o.description,
-          })),
-      };
-    }
-
+  /** Mock service to retrieve a list of shipping options */
+  getShippingOptionParameters(): google.payments.api.ShippingOptionParameters {
     return {
-      defaultSelectedOptionId: 'international',
-      shippingOptions: shippingOptions
-        .filter(o => o.id === 'international')
-        .map(o => ({
-          id: o.id,
-          label: o.label,
-          description: o.description,
-        })),
+      defaultSelectedOptionId: 'free',
+      shippingOptions: shippingOptions.map(o => ({
+        id: o.id,
+        label: o.label,
+        description: o.description,
+      })),
     };
   }
 
@@ -83,7 +62,8 @@ export class StoreService {
     const shippingOption = shippingOptions.find(option => option.id === shippingOptionData?.id);
     const shipping = shippingOption?.price ?? 0;
 
-    const tax = subtotal * (address?.countryCode === 'US' ? 0.1 : 0);
+    const tax = this.calculateTax(address) * subtotal;
+
     const total = subtotal + shipping + tax;
 
     displayItems.push({
@@ -114,6 +94,11 @@ export class StoreService {
       currencyCode: 'USD',
       countryCode: 'US',
     };
+  }
+
+  /** Mock tax calculation method */
+  private calculateTax(address?: google.payments.api.Address) {
+    return address?.countryCode === 'US' ? 0.1 : 0.11;
   }
 
   /** Mock service to process order */
