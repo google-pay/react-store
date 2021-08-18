@@ -20,6 +20,7 @@ import { ItemDetails as Item, StoreData } from '../data/store-data';
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { CartContext } from './CartContext';
+import GooglePayButton from '@google-pay/button-react';
 import qs from 'querystring';
 
 function unescapeHtml(text: string) {
@@ -114,6 +115,45 @@ export default function ItemDetails() {
                 </Typography>
               </div>
               <div className="buttons">
+                <GooglePayButton
+                  environment="TEST"
+                  buttonSizeMode="fill"
+                  paymentRequest={{
+                    apiVersion: 2,
+                    apiVersionMinor: 0,
+                    allowedPaymentMethods: [
+                      {
+                        type: 'CARD',
+                        parameters: {
+                          allowedAuthMethods: ['PAN_ONLY', 'CRYPTOGRAM_3DS'],
+                          allowedCardNetworks: ['MASTERCARD', 'VISA'],
+                        },
+                        tokenizationSpecification: {
+                          type: 'PAYMENT_GATEWAY',
+                          parameters: {
+                            gateway: 'example',
+                            gatewayMerchantId: 'exampleGatewayMerchantId',
+                          },
+                        },
+                      },
+                    ],
+                    merchantInfo: {
+                      merchantId: '17613812255336763067',
+                      merchantName: 'Demo Only (you will not be charged)',
+                    },
+                    transactionInfo: {
+                      totalPriceStatus: 'FINAL',
+                      totalPriceLabel: 'Total',
+                      totalPrice: item.price.toFixed(2),
+                      currencyCode: 'USD',
+                      countryCode: 'US',
+                    },
+                  }}
+                  onLoadPaymentData={paymentData => {
+                    console.log('TODO: send order to server', paymentData.paymentMethodData);
+                    history.push('/confirm');
+                  }}
+                />
                 <Button variant="outlined" onClick={addToCart}>
                   Add to Cart
                 </Button>
