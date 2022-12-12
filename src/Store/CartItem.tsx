@@ -1,11 +1,11 @@
-/**
- * Copyright 2020 Google LLC
+/*
+ * Copyright 2022 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -31,14 +31,14 @@ const CartItem: React.FC<Props> = props => {
 
   function handleQuantityChange(quantity: number) {
     const index = cart.findIndex(
-      cartItem => cartItem.size === props.cartItem.size && cartItem.item.name === props.cartItem.item.name,
+      cartItem => cartItem.size === props.cartItem.size && cartItem.item.name === props.cartItem.item.name
     );
 
     if (index !== -1) {
       const newCart = [...cart];
       newCart.splice(index, 1, {
         ...cart[index],
-        quantity,
+        quantity
       });
       setCart(newCart);
     }
@@ -46,7 +46,7 @@ const CartItem: React.FC<Props> = props => {
 
   function handleRemoveClick() {
     const index = cart.findIndex(
-      cartItem => cartItem.size === props.cartItem.size && cartItem.item.name === props.cartItem.item.name,
+      cartItem => cartItem.size === props.cartItem.size && cartItem.item.name === props.cartItem.item.name
     );
 
     if (index !== -1) {

@@ -1,52 +1,68 @@
-*This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).*
-
 # Sample React T-Shirt Store
 
-The purpose this repository is to showcase the Google Pay integration in a store built with React.
+The purpose this repository is to showcase the Google Pay integration in a store
+built with React.
 
-[![Sample image of the react store](docs/images/react-store-sample-image.png)](https://payments-react-store.web.app/)
+A deployed version of this app can be found at this link.
 
-The [`main`](https://github.com/google-pay/react-store/tree/main) branch contains basic store functionality while the [`google-pay`](https://github.com/google-pay/react-store/tree/google-pay) branch contains the code changes and commits required to add Google Pay integration.
+## Prerequisites
 
-## Available Scripts
+To configure and run this sample app, you will need the following prerequisites
+installed on your workstation:
 
-In the project directory, you can run:
+*   [Node.js and NPM](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+*   Any prerequisites included in the
+    [React Documentation](https://reactjs.org/docs/getting-started.html)
 
-### `npm start`
+## Setup
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Once the prerequisites are installed, follow the below steps to set up and use
+this sample app:
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+1.  Clone this repository
+1.  In your terminal, navigate to the repository location
 
-### `npm test`
+    ```bash
+    cd /path/to/repo
+    ```
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1.  Install the Node.js dependencies
 
-### `npm run build`
+    ```bash
+    npm install .
+    ```
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Usage
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+### Development server
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+To start a development server, follow the below steps:
 
-### `npm run eject`
+1.  In your terminal, run `npm run start`
+1.  In your web browser, open `http://localhost:3000/`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+The app will automatically reload if you change any of the source files. You
+will also see any lint errors in the console.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Build
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+This command builds the app and outputs the results to the `build/` directory.
+It bundles React in production mode and optimizes the build for the best
+performance. The build is minified and the filenames include the hashes.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+1.  In your terminal, run `npm run build`
 
-## Learn More
+**Note:** This sample app is not intended for use in a production environment!
+Please do not attempt to use it in this manner.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+For more information on deploying apps to production, see the
+[React documentation](https://create-react-app.dev/docs/deployment/).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Support
+
+For more information about React, refer to the
+[React documentation](https://reactjs.org/).
+
+For any questions on this sample app, please
+[submit an issue](https://github.com/google-pay/angular-store/issues/new) to
+this repository.

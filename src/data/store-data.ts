@@ -1,11 +1,11 @@
-/**
- * Copyright 2020 Google LLC
+/*
+ * Copyright 2022 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -42,23 +42,23 @@ const categories: CategoryDetails[] = [
   {
     name: 'mens_outerwear',
     title: "Men's Outerwear",
-    image: '/images/mens_outerwear.jpg',
+    image: '/images/mens_outerwear.jpg'
   },
   {
     name: 'ladies_outerwear',
     title: "Lady's Outerwear",
-    image: '/images/ladies_outerwear.jpg',
+    image: '/images/ladies_outerwear.jpg'
   },
   {
     name: 'mens_tshirts',
     title: "Men's T-Shirts",
-    image: '/images/mens_tshirts.jpg',
+    image: '/images/mens_tshirts.jpg'
   },
   {
     name: 'ladies_tshirts',
     title: "Lady's T-Shirts",
-    image: '/images/ladies_tshirts.jpg',
-  },
+    image: '/images/ladies_tshirts.jpg'
+  }
 ];
 
 const itemCache = new Map<string, Promise<ItemDetails[]>>();
@@ -94,7 +94,7 @@ export class StoreData {
       existing = {
         item,
         size,
-        quantity,
+        quantity
       };
 
       cart = [...cart, existing];
