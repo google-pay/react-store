@@ -14,11 +14,14 @@
  * limitations under the License.
  */
 
-import { CartItemDetails } from '../data/store-data';
 import React from 'react';
 
+import { CartItemDetails } from '../interfaces/CartItemDetails';
+
+// Create an empty cart
 let cart: CartItemDetails[] = [];
 
+// Add the empty cart to the current context
 const CartContext = React.createContext({
   cart,
   setCart(cart: CartItemDetails[]) {

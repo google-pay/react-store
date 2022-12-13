@@ -14,13 +14,30 @@
  * limitations under the License.
  */
 
+// Acts as local storage
 const map = new Map<string, any>();
 
+/**Mock storage provider */
 export abstract class StorageProvider {
-  abstract get<T>(key: string): T;
-  abstract set<T>(key: string, value: T): void;
+  /**Get a value
+   *
+   * @param {string} key The item's key in the map
+   * @returns {T} The value of the item
+   */
+  public abstract get<T>(key: string): T;
 
-  static create(): StorageProvider {
+  /**Set a value
+   *
+   * @param {string} key The item's key in the map
+   * @param {T} value The item's value
+   */
+  public abstract set<T>(key: string, value: T): void;
+
+  /**Create a new storage provider instance */
+  public static create(): StorageProvider {
+    // Check if a local storage provider has been created
+    // If so, return it
+    // If not, create a new one
     if (localStorage) {
       return new LocalStorageProvider();
     }
@@ -28,12 +45,23 @@ export abstract class StorageProvider {
   }
 }
 
+/**Mock local storage provider */
 export class LocalStorageProvider extends StorageProvider {
-  get<T>(key: string): T {
+  /**Get a value
+   *
+   * @param {string} key The item's key in the map
+   * @returns {T} The value of the item
+   */
+  public get<T>(key: string): T {
     return JSON.parse(localStorage.getItem(key) || 'null');
   }
 
-  set<T>(key: string, value: T): void {
+  /**Set a value
+   *
+   * @param {string} key The item's key in the map
+   * @param {T} value The item's value
+   */
+  public set<T>(key: string, value: T): void {
     localStorage.setItem(key, JSON.stringify(value));
   }
 }

@@ -14,13 +14,20 @@
  * limitations under the License.
  */
 
-import './Category.css';
-import { Card, CardContent, CardMedia, Typography } from '@material-ui/core';
-import { CategoryDetails } from '../data/store-data';
-import { Link } from 'react-router-dom';
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { Card, CardContent, CardMedia, Typography } from '@mui/material';
 
-const Category: React.FC<CategoryDetails> = props => {
+import { CategoryDetails } from '../interfaces/CategoryDetails';
+
+import './Category.css';
+
+/**Category React component
+ *
+ * @param {CategoryDetails} props The details of the item categories
+ */
+const Category: React.FC<CategoryDetails> = (props: CategoryDetails) => {
+  // Return the React component
   return (
     <Link to={`/list/${props.name}`} className="category-link">
       <Card className="category-card" elevation={5}>

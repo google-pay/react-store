@@ -14,11 +14,9 @@
  * limitations under the License.
  */
 
-import App from './App';
-import { render } from '@testing-library/react';
-
-test('renders learn react link', () => {
-  const { getByText } = render(<App />);
-  const linkElement = getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
-});
+/**The name, title, and image path for a merchandise category */
+export interface CategoryDetails {
+  name: string;
+  title: string;
+  image: string;
+}

@@ -5,6 +5,11 @@ built with React.
 
 A deployed version of this app can be found at this link.
 
+**Note:** This sample app is not intended for use in a production environment!
+Please do not attempt to use it in this manner. For more information on
+deploying apps to production, see the
+[React documentation](https://create-react-app.dev/docs/deployment/).
+
 ## Prerequisites
 
 To configure and run this sample app, you will need the following prerequisites
@@ -32,13 +37,19 @@ this sample app:
     npm install .
     ```
 
+1.  Build `index.html` and `bundle.js`
+
+    ```bash
+    npm run build
+    ```
+
 ## Usage
 
 ### Development server
 
 To start a development server, follow the below steps:
 
-1.  In your terminal, run `npm run start`
+1.  In your terminal, run `npm start`
 1.  In your web browser, open `http://localhost:3000/`
 
 The app will automatically reload if you change any of the source files. You
@@ -46,17 +57,11 @@ will also see any lint errors in the console.
 
 ### Build
 
-This command builds the app and outputs the results to the `build/` directory.
+This command builds the app and outputs the results to the `dist/` directory.
 It bundles React in production mode and optimizes the build for the best
 performance. The build is minified and the filenames include the hashes.
 
 1.  In your terminal, run `npm run build`
-
-**Note:** This sample app is not intended for use in a production environment!
-Please do not attempt to use it in this manner.
-
-For more information on deploying apps to production, see the
-[React documentation](https://create-react-app.dev/docs/deployment/).
 
 ## Support
 

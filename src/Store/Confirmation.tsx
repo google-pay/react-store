@@ -14,16 +14,23 @@
  * limitations under the License.
  */
 
-import './Status.css';
-import { Button, Typography } from '@material-ui/core';
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { Button, Typography } from '@mui/material';
 
+import './Status.css';
+
+/**Properties for the Confirmation component */
 interface Props {}
 
-const Confirmation: React.FC<Props> = props => {
-  const history = useHistory();
+/**Confirmation React component
+ *
+ * @param {Props} props The details of the order confirmation
+ */
+const Confirmation: React.FC<Props> = (props: Props) => {
+  const navigate = useNavigate();
 
+  // Return the React component
   return (
     <div className="Confirmation">
       <div className="content">
@@ -35,7 +42,7 @@ const Confirmation: React.FC<Props> = props => {
           <em>This is for demo purposes only. You have not been charged, the order is not being processed.</em>
         </Typography>
         <div className="buttons">
-          <Button variant="text" onClick={() => history.push('/')}>
+          <Button variant="text" onClick={() => navigate('/')}>
             Continue Shopping
           </Button>
         </div>

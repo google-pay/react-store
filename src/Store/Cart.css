@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * https: //www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -25,7 +25,7 @@
   text-align: center;
 }
 
-.Cart .total > * {
+.Cart .total>* {
   display: inline-block;
   margin: 10px;
 }
@@ -35,7 +35,7 @@
   max-width: 500px;
 }
 
-.Cart .buttons > * {
+.Cart .buttons>* {
   width: 100%;
 }
 

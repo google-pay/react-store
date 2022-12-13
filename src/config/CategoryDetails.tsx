@@ -14,32 +14,28 @@
  * limitations under the License.
  */
 
-import React from 'react';
-
-import Category from './Category';
-
 import { CategoryDetails } from '../interfaces/CategoryDetails';
 
-import './Home.css';
-
-/**Properties for the Home component */
-interface Props {
-  categories: CategoryDetails[];
-}
-
-/**Home React component
- *
- * @param {Props} props The details of the item categories
- */
-const Home: React.FC<Props> = (props: Props) => {
-  // Return the Home React component
-  return (
-    <div className="Home">
-      {props.categories.map(cat => (
-        <Category key={cat.name} {...cat} />
-      ))}
-    </div>
-  );
-};
-
-export default Home;
+/**The available merchandise categories */
+export const categories: CategoryDetails[] = [
+  {
+    name: 'mens_outerwear',
+    title: 'Mens Outerwear',
+    image: '/images/categories/mens_outerwear.jpg'
+  },
+  {
+    name: 'ladies_outerwear',
+    title: 'Ladies Outerwear',
+    image: '/images/categories/ladies_outerwear.jpg'
+  },
+  {
+    name: 'mens_tshirts',
+    title: 'Mens T-Shirts',
+    image: '/images/categories/mens_tshirts.jpg'
+  },
+  {
+    name: 'ladies_tshirts',
+    title: 'Ladies T-Shirts',
+    image: '/images/categories/ladies_tshirts.jpg'
+  }
+];

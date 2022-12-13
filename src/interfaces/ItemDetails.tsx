@@ -14,4 +14,13 @@
  * limitations under the License.
  */
 
-/// <reference types="react-scripts" />
+/**The name, title, category, price, description, and image paths for an item */
+export interface ItemDetails {
+  name: string;
+  title: string;
+  category: string;
+  price: number;
+  description: string;
+  image: string;
+  largeImage: string;
+}

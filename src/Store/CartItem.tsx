@@ -14,48 +14,76 @@
  * limitations under the License.
  */
 
-import './List.css';
-import { Card, CardContent, IconButton, InputLabel, MenuItem, Select, Typography } from '@material-ui/core';
 import React, { useContext } from 'react';
-import { CartContext } from './CartContext';
-import { CartItemDetails } from '../data/store-data';
-import { Close } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
+import { Card, CardContent, IconButton, InputLabel, MenuItem, Select, Typography } from '@mui/material';
+import { Close } from '@mui/icons-material';
 
+import { CartContext } from './CartContext';
+import { CartItemDetails } from '../interfaces/CartItemDetails';
+
+import './List.css';
+
+/**Properties for the CartItem component */
 interface Props {
   cartItem: CartItemDetails;
 }
 
-const CartItem: React.FC<Props> = props => {
+/**CartItem React component
+ *
+ * @param {Props} props The details of the item in the cart
+ */
+const CartItem: React.FC<Props> = (props: Props) => {
+  // Get the cart from the current context
   const { cart, setCart } = useContext(CartContext);
 
+  /**Handle changes to the quantity of an item in the cart
+   *
+   * @param {number} quantity The new quantity of the item
+   */
   function handleQuantityChange(quantity: number) {
+    // Find the index of the item in the cart
     const index = cart.findIndex(
       cartItem => cartItem.size === props.cartItem.size && cartItem.item.name === props.cartItem.item.name
     );
 
+    // Index exists
     if (index !== -1) {
+      // Copy the cart
       const newCart = [...cart];
+
+      // Replace the item at the index with the new item (changing quantity)
       newCart.splice(index, 1, {
         ...cart[index],
         quantity
       });
+
+      // Replace the cart with the updated one
       setCart(newCart);
     }
   }
 
+  /**Handle removing an item from the cart */
   function handleRemoveClick() {
+    // Find the index of the item in the cart
     const index = cart.findIndex(
       cartItem => cartItem.size === props.cartItem.size && cartItem.item.name === props.cartItem.item.name
     );
 
+    // Index exists
     if (index !== -1) {
+      // Copy the cart
       const newCart = [...cart];
+
+      // Remove the item at the index
       newCart.splice(index, 1);
+
+      // Replace the cart with the updated one
       setCart(newCart);
     }
   }
 
+  // Return the CartItem React component
   return (
     <Card className="cart-item-card" elevation={2}>
       <Link to={`/list/${props.cartItem.item.category}/${props.cartItem.item.name}?size=${props.cartItem.size}`}>

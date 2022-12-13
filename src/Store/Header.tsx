@@ -14,43 +14,60 @@
  * limitations under the License.
  */
 
-import './Header.css';
-import { AppBar, Badge, IconButton, Menu, MenuItem, Toolbar, Typography } from '@material-ui/core';
-import { CategoryDetails, StoreData } from '../data/store-data';
-import { Link, useHistory } from 'react-router-dom';
-import { Menu as MenuIcon, ShoppingCart } from '@material-ui/icons';
 import React, { useContext, useEffect, useMemo, useState } from 'react';
-import { CartContext } from './CartContext';
+import { Link, useNavigate } from 'react-router-dom';
+import { AppBar, Badge, IconButton, Menu, MenuItem, Toolbar, Typography } from '@mui/material';
+import { Menu as MenuIcon, ShoppingCart } from '@mui/icons-material';
 
+import { CartContext } from './CartContext';
+import { CategoryDetails } from '../interfaces/CategoryDetails';
+import { StoreData } from './StoreData';
+
+import './Header.css';
+
+/**Header React component */
 export default function Header() {
+  const navigate = useNavigate();
+
+  // Manages store items, categories, etc.
   const storeData = useMemo(() => new StoreData(), []);
+
+  // Current shopping cart from context
   const { cart } = useContext(CartContext);
+
+  // Get the anchor element from the current state
   const [anchorEl, setAnchorEl] = useState<Element | null>(null);
+
+  // Get the categories from the current state
   const [categories, setCategories] = useState([] as CategoryDetails[]);
 
-  const history = useHistory();
-
+  // If store data changes, update the categories
   useEffect(() => {
     storeData.getCategories().then(data => setCategories(data));
   }, [storeData]);
 
+  // Handle clicks to the Shop menu
   const handleMenuClick = (event: React.MouseEvent) => {
     setAnchorEl(event.currentTarget);
   };
 
+  // Handle clicks to a Shop menu item
   const handleMenuItemClick = (category: CategoryDetails) => {
-    history.push(`/list/${category.name}`);
+    navigate(`/list/${category.name}`);
     setAnchorEl(null);
   };
 
+  // Handle closing the Shop menu
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
 
+  // Handle clicks to the shopping cart
   const handleCartClick = (event: React.MouseEvent) => {
-    history.push('/cart');
+    navigate('/cart');
   };
 
+  // Return the Header React component
   return (
     <AppBar position="sticky" className="Header">
       <Toolbar>

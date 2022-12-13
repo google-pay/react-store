@@ -14,27 +14,99 @@
  * limitations under the License.
  */
 
-import './Checkout.css';
-import { Button, Checkbox, FormControlLabel, Grid, TextField, Typography } from '@material-ui/core';
-import React, { useContext } from 'react';
-import { CartContext } from './CartContext';
-import { useHistory } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Button, Checkbox, FormControlLabel, Grid, TextField, Typography } from '@mui/material';
 
+import GooglePayButton from '@google-pay/button-react';
+
+import { buildPaymentRequest, getUpdatedPaymentData } from './GooglePay';
+import { CartContext } from './CartContext';
+
+import './Checkout.css';
+
+/**Properties for the Checkout component */
 interface Props {}
 
+/**Checkout React component */
 const Checkout: React.FC<Props> = () => {
-  const history = useHistory();
-  const { setCart } = useContext(CartContext);
+  const navigate = useNavigate();
 
-  function handleCheckout() {
+  // Get the cart from the current context
+  const { cart, setCart } = useContext(CartContext);
+
+  // Current Google Pay payment request details (if in state)
+  const [paymentRequest, setPaymentRequest] = useState(buildPaymentRequest([]));
+
+  // If the cart changes, update the payment request object
+  useEffect(() => {
+    Object.assign(
+      paymentRequest,
+      buildPaymentRequest(
+        cart.map(itemDetail => {
+          return {
+            label: itemDetail.item.title,
+            price: (itemDetail.quantity * itemDetail.item.price).toFixed(2),
+            type: 'LINE_ITEM'
+          };
+        })
+      )
+    );
+    setPaymentRequest(paymentRequest);
+  }, [cart, paymentRequest]);
+
+  /**Handles Google Pay checkout
+   *
+   * @param {google.payments.api.PaymentData} paymentData Google Pay payment data
+   */
+  function handleLoadPaymentData(paymentData: google.payments.api.PaymentData) {
+    // Simply log to the console for this sample app
+    // Normally this would be sent to a backend server for processing
+    console.log('Payment data', paymentData);
+
+    // Empty cart
     setCart([]);
-    history.push('/confirm');
+
+    // Route the user to the success page
+    navigate('/confirm');
   }
 
+  /**Handles manual checkout (empty the cart and route to confirmation) */
+  function handleCheckout() {
+    setCart([]);
+    navigate('/confirm');
+  }
+
+  // Return the React component
   return (
     <div className="Checkout">
       <Grid container spacing={5} className="checkout-grid">
-        <Grid item xs={12} sm={7}>
+        <Grid item xs={12} sm={6}>
+          <Typography variant="h5" gutterBottom>
+            Automatic checkout
+          </Typography>
+          <div className="google-pay-checkout">
+            <Typography variant="h6" gutterBottom>
+              Skip the forms and check out with Google Pay!
+            </Typography>
+            <Grid container spacing={1}>
+              <div className="buttons">
+                <GooglePayButton
+                  environment="TEST"
+                  buttonSizeMode="fill"
+                  paymentRequest={paymentRequest}
+                  onLoadPaymentData={handleLoadPaymentData}
+                  onError={error => console.error(error)}
+                  onPaymentDataChanged={paymentData => getUpdatedPaymentData(paymentRequest, paymentData)}
+                />
+              </div>
+            </Grid>
+          </div>
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <Typography variant="h5" gutterBottom>
+            Guest checkout
+          </Typography>
           <div className="shipping">
             <Typography variant="h6" gutterBottom>
               Shipping address
@@ -120,8 +192,6 @@ const Checkout: React.FC<Props> = () => {
               </Grid>
             </Grid>
           </div>
-        </Grid>
-        <Grid item xs={12} sm={5}>
           <div className="payment">
             <Typography variant="h6" gutterBottom>
               Payment method
@@ -154,13 +224,13 @@ const Checkout: React.FC<Props> = () => {
               </Grid>
             </Grid>
           </div>
+          <div className="buttons">
+            <Button variant="outlined" onClick={handleCheckout}>
+              Submit
+            </Button>
+          </div>
         </Grid>
       </Grid>
-      <div className="buttons">
-        <Button variant="outlined" onClick={handleCheckout}>
-          Submit
-        </Button>
-      </div>
     </div>
   );
 };

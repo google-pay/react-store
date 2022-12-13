@@ -14,4 +14,11 @@
  * limitations under the License.
  */
 
-import '@testing-library/jest-dom/extend-expect';
+import { ItemDetails } from './ItemDetails';
+
+/**The item, size, and quantity for an item in the user's cart */
+export interface CartItemDetails {
+  item: ItemDetails;
+  size: string;
+  quantity: number;
+}

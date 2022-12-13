@@ -15,9 +15,9 @@
  */
 
 import './List.css';
-import { Card, CardContent, CardMedia, Typography } from '@material-ui/core';
+import { Card, CardContent, CardMedia, Typography } from '@mui/material';
 import { Link, useParams } from 'react-router-dom';
-import { ItemDetails } from '../data/store-data';
+import { ItemDetails } from '../interfaces/ItemDetails';
 import React from 'react';
 
 interface Props {

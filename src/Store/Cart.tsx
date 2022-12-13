@@ -14,40 +14,50 @@
  * limitations under the License.
  */
 
-import './Cart.css';
-import { Button, Typography } from '@material-ui/core';
+import { Button, Typography } from '@mui/material';
 import React, { useContext } from 'react';
-import { CartContext } from './CartContext';
+import { useNavigate } from 'react-router-dom';
+
+import './Cart.css';
 import CartItem from './CartItem';
-import { StoreData } from '../data/store-data';
-import { useHistory } from 'react-router-dom';
+import { CartContext } from './CartContext';
+import { StoreData } from './StoreData';
 
 interface Props {}
 
+/** Represents a user's shopping cart */
 const Cart: React.FC<Props> = props => {
-  const { cart } = useContext(CartContext);
-  const cartSize = StoreData.getCartSize(cart);
-  const history = useHistory();
+  const navigate = useNavigate();
 
+  // Get the cart from the context
+  const { cart } = useContext(CartContext);
+
+  // Get the cart size
+  const cartSize = StoreData.getCartSize(cart);
+
+  // Return the cart
   return (
     <div className="Cart">
       <Typography variant="h5">Your Cart</Typography>
       <Typography variant="body2" color="textSecondary">
         ({cartSize} {cartSize === 1 ? 'item' : 'items'})
       </Typography>
+
       <div className="cart-items">
         {cart.map((item, index) => (
           <CartItem key={index} cartItem={item} />
         ))}
       </div>
+
       <div className="total">
         <span className="label">Total:</span>
         <span className="amount">
           ${cart.reduce((total, cartItem) => total + cartItem.quantity * cartItem.item.price, 0).toFixed(2)}
         </span>
       </div>
+
       <div className="buttons">
-        <Button variant="outlined" onClick={() => history.push('/checkout')}>
+        <Button variant="outlined" onClick={() => navigate('/checkout')}>
           Checkout
         </Button>
       </div>
