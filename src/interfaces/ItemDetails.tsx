@@ -1,11 +1,11 @@
-/**
- * Copyright 2020 Google LLC
+/*
+ * Copyright 2022 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,16 +14,13 @@
  * limitations under the License.
  */
 
-import { CartItemDetails } from '../data/store-data';
-import React from 'react';
-
-let cart: CartItemDetails[] = [];
-
-const CartContext = React.createContext({
-  cart,
-  setCart(cart: CartItemDetails[]) {
-    this.cart = cart;
-  },
-});
-
-export { CartContext };
+/**The name, title, category, price, description, and image paths for an item */
+export interface ItemDetails {
+  name: string;
+  title: string;
+  category: string;
+  price: number;
+  description: string;
+  image: string;
+  largeImage: string;
+}

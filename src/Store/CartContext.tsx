@@ -1,11 +1,11 @@
-/**
- * Copyright 2020 Google LLC
+/*
+ * Copyright 2022 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,12 +14,19 @@
  * limitations under the License.
  */
 
-import App from './App';
 import React from 'react';
-import { render } from '@testing-library/react';
 
-test('renders learn react link', () => {
-  const { getByText } = render(<App />);
-  const linkElement = getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+import { CartItemDetails } from '../interfaces/CartItemDetails';
+
+// Create an empty cart
+let cart: CartItemDetails[] = [];
+
+// Add the empty cart to the current context
+const CartContext = React.createContext({
+  cart,
+  setCart(cart: CartItemDetails[]) {
+    this.cart = cart;
+  }
 });
+
+export { CartContext };
