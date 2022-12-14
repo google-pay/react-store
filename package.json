@@ -31,7 +31,7 @@
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
-    "@google-pay/button-react": "^3.0.2",
+    "@google-pay/button-react": "^3.0.5",
     "@mui/icons-material": "^5.10.16",
     "@mui/material": "^5.10.17",
     "@types/googlepay": "^0.6.4",
