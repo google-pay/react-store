@@ -17,16 +17,16 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
 
-import Cart from './store/Cart';
-import Checkout from './store/Checkout';
-import Confirmation from './store/Confirmation';
-import Header from './store/Header';
-import Home from './store/Home';
-import ItemDetails from './store/ItemDetails';
-import List from './store/List';
+import Cart from './Store/Cart';
+import Checkout from './Store/Checkout';
+import Confirmation from './Store/Confirmation';
+import Header from './Store/Header';
+import Home from './Store/Home';
+import ItemDetails from './Store/ItemDetails';
+import List from './Store/List';
 
-import { CartContext } from './store/CartContext';
-import { StoreData } from './store/StoreData';
+import { CartContext } from './Store/CartContext';
+import { StoreData } from './Store/StoreData';
 import { CategoryDetails } from './interfaces/CategoryDetails';
 import { CartItemDetails } from './interfaces/CartItemDetails';
 
