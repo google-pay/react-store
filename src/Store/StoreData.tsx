@@ -80,7 +80,7 @@ export class StoreData {
    */
   public addItemToCart(item: ItemDetails, size: string, quantity: number) {
     // Get the cart, if it exists in local storage
-    let cart = this.storageProvider.get<CartItemDetails[]>('cart') || [];
+    let cart = Array.from(this.storageProvider.get<CartItemDetails[]>('cart') || []);
 
     // Check if the item already exists in the cart
     let existing = cart.find(c => c.item.name === item.name && c.size === size);
@@ -110,7 +110,7 @@ export class StoreData {
    * @returns {CartItemDetails[]} The current cart, or an empty array
    */
   public getCart(): CartItemDetails[] {
-    return this.storageProvider.get<CartItemDetails[]>('cart') || [];
+    return Array.from(this.storageProvider.get<CartItemDetails[]>('cart') || []);
   }
 
   /**Update the user's cart with a new one
