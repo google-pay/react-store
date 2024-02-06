@@ -1,0 +1,15 @@
+inputSet:
+  name: Inputset
+  identifier: Inputset
+  orgIdentifier: default
+  projectIdentifier: Product_Exploratory
+  pipeline:
+    identifier: SBOM_Drift_for_React_Store
+    properties:
+      ci:
+        codebase:
+          build:
+            type: PR
+            spec:
+              number: <+trigger.prNumber>
+  object Object: pipeline.properties.ci.codebase
