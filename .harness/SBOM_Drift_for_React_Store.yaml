@@ -48,6 +48,10 @@ pipeline:
                       spec:
                         url: https://github.com/tejakummarikuntla/react-store
                         variant_type: branch
+                        variant: <+trigger.sourceBranch>
+                    sbom_drift:
+                      base: repository
+                      spec:
                         variant: main
                     resources:
                       limits:
