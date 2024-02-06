@@ -20,12 +20,6 @@ pipeline:
           cloneCodebase: true
           caching:
             enabled: true
-          platform:
-            os: Linux
-            arch: Amd64
-          runtime:
-            type: Cloud
-            spec: {}
           execution:
             steps:
               - step:
@@ -34,7 +28,7 @@ pipeline:
                   identifier: Install_dependencies
                   spec:
                     connectorRef: account.harnessImage
-                    image: node/node:14
+                    image: node:14
                     shell: Sh
                     command: |
                       rm -rf ./node_modules package-lock.json
@@ -59,3 +53,11 @@ pipeline:
                       limits:
                         memory: 500Mi
                         cpu: "0.5"
+          infrastructure:
+            type: KubernetesDirect
+            spec:
+              connectorRef: account.kubernetes_connector_for_at
+              namespace: ssca-at
+              automountServiceAccountToken: true
+              nodeSelector: {}
+              os: Linux
