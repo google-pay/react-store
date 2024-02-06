@@ -30,7 +30,7 @@ pipeline:
                     connectorRef: account.harnessImage
                     image: node:14
                     shell: Sh
-                    command: |
+                    command: |-
                       rm -rf ./node_modules package-lock.json
                       npm install
               - step:
