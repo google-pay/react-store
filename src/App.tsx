@@ -16,6 +16,8 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
+import moment from 'moment'; // Import moment
+import _ from 'lodash'; // Import lodash
 
 import Cart from './Store/Cart';
 import Checkout from './Store/Checkout';
@@ -54,11 +56,21 @@ function App() {
     storeData.getCategories().then(data => setCategories(data));
   }, [storeData]);
 
+  // Generate the current timestamp with moment.js
+  const currentTime = moment().format('MMMM Do YYYY, h:mm:ss a');
+
+  // Use lodash to transform the timestamp to uppercase
+  const uppercaseTimestamp = _.toUpper(currentTime);
+
   // Create the router
   return (
     <CartContext.Provider value={{ cart, setCart: updateCart }}>
       <BrowserRouter>
         <Header />
+        <div style={{ textAlign: 'center', margin: '20px 0' }}>
+          {/* Display the uppercase timestamp */}
+          <h2>Current Date and Time: {uppercaseTimestamp}</h2>
+        </div>
         <Routes>
           <Route path="/" element={<Home categories={categories} />} />
           <Route path="/list/:listId/:itemId" element={<ItemDetails />} />
