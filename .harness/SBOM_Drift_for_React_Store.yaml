@@ -35,7 +35,27 @@ pipeline:
                       npm install
               - step:
                   type: SscaOrchestration
-                  name: Generate SBOM
+                  name: Generate SBOM for Main Branch
+                  identifier: Generate_SBOM_for_Main_Branch
+                  spec:
+                    mode: generation
+                    tool:
+                      type: Syft
+                      spec:
+                        format: spdx-json
+                    source:
+                      type: repository
+                      spec:
+                        url: https://github.com/tejakummarikuntla/react-store
+                        variant_type: branch
+                        variant: main
+                    resources:
+                      limits:
+                        memory: 500Mi
+                        cpu: "0.5"
+              - step:
+                  type: SscaOrchestration
+                  name: "Generate SBOM and Detect Drift for Feature Branch "
                   identifier: Generate_SBOM
                   spec:
                     mode: generation
@@ -65,3 +85,5 @@ pipeline:
               automountServiceAccountToken: true
               nodeSelector: {}
               os: Linux
+          slsa_provenance:
+            enabled: false
