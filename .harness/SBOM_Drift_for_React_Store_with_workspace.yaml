@@ -38,7 +38,7 @@ pipeline:
                   spec:
                     connectorRef: account.tejakummarikuntla
                     repoName: react-store
-                    cloneDirectory: /harness/main_branch_folder
+                    cloneDirectory: /test/main_branch_folder
                     build:
                       type: branch
                       spec:
@@ -59,7 +59,7 @@ pipeline:
                         url: https://github.com/tejakummarikuntla/react-store
                         variant_type: branch
                         variant: main
-                        cloned_codebase: /harness/main_branch_folder
+                        cloned_codebase: /test/main_branch_folder
                     resources:
                       limits:
                         memory: 500Mi
