@@ -1,88 +1,102 @@
----
 pipeline:
-  projectIdentifier: "Product_Exploratory"
-  orgIdentifier: "default"
+  projectIdentifier: Product_Exploratory
+  orgIdentifier: default
   tags: {}
   properties:
     ci:
       codebase:
-        connectorRef: "account.tejakummarikuntla"
-        repoName: "react-store"
-        build: "<+input>"
+        connectorRef: account.tejakummarikuntla
+        repoName: react-store
+        build: <+input>
   stages:
-  - stage:
-      name: "Build"
-      identifier: "Build"
-      description: ""
-      type: "CI"
-      spec:
-        cloneCodebase: true
-        caching:
-          enabled: true
-        execution:
-          steps:
-          - step:
-              type: "Run"
-              name: "Install dependencies"
-              identifier: "Install_dependencies"
-              spec:
-                connectorRef: "account.harnessImage"
-                image: "node:14"
-                shell: "Sh"
-                command: "rm -rf ./node_modules package-lock.json\nnpm install"
-          - step:
-              type: "SscaOrchestration"
-              name: "Generate SBOM for Main Branch"
-              identifier: "Generate_SBOM_for_Main_Branch"
-              spec:
-                mode: "generation"
-                tool:
-                  type: "Syft"
+    - stage:
+        name: Build
+        identifier: Build
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          caching:
+            enabled: true
+          execution:
+            steps:
+              - step:
+                  type: Run
+                  name: Install dependencies
+                  identifier: Install_dependencies
                   spec:
-                    format: "spdx-json"
-                source:
-                  type: "repository"
+                    connectorRef: account.harnessImage
+                    image: node:14
+                    shell: Sh
+                    command: |-
+                      rm -rf ./node_modules package-lock.json
+                      npm install
+              - step:
+                  type: GitClone
+                  name: Clone the main branch
+                  identifier: Clone_the_main_branch
                   spec:
-                    url: "https://github.com/tejakummarikuntla/react-store"
-                    variant_type: "branch"
-                    variant: "main"
-                resources:
-                  limits:
-                    memory: "500Mi"
-                    cpu: "0.5"
-          - step:
-              type: "SscaOrchestration"
-              name: "Generate SBOM and Detect Drift for Feature Branch "
-              identifier: "Generate_SBOM"
-              spec:
-                mode: "generation"
-                tool:
-                  type: "Syft"
+                    connectorRef: account.tejakummarikuntla
+                    repoName: react-store
+                    cloneDirectory: /harness/main_branch_folder
+                    build:
+                      type: branch
+                      spec:
+                        branch: main
+              - step:
+                  type: SscaOrchestration
+                  name: Generate SBOM for main branch
+                  identifier: Generate_SBOM
                   spec:
-                    format: "spdx-json"
-                source:
-                  type: "repository"
+                    mode: generation
+                    tool:
+                      type: Syft
+                      spec:
+                        format: spdx-json
+                    source:
+                      type: repository
+                      spec:
+                        url: https://github.com/tejakummarikuntla/react-store
+                        variant_type: branch
+                        variant: main
+                        cloned_codebase: /harness/main_branch_folder
+                    resources:
+                      limits:
+                        memory: 500Mi
+                        cpu: "0.5"
+              - step:
+                  type: SscaOrchestration
+                  name: Generate SBOM and Drift on feature branch
+                  identifier: Generate_SBOM_and_Drift_on_feature_branch
                   spec:
-                    url: "https://github.com/tejakummarikuntla/react-store"
-                    variant_type: "branch"
-                    variant: "time_stamp"
-                sbom_drift:
-                  base: "repository"
-                  spec:
-                    variant: "main"
-                resources:
-                  limits:
-                    memory: "500Mi"
-                    cpu: "0.5"
-        infrastructure:
-          type: "KubernetesDirect"
-          spec:
-            connectorRef: "account.kubernetes_connector_for_at"
-            namespace: "ssca-at"
-            automountServiceAccountToken: true
-            nodeSelector: {}
-            os: "Linux"
-        slsa_provenance:
-          enabled: false
-  identifier: "SBOM_Drift_for_React_Store_with_workspace"
-  name: "SBOM Drift for React Store - with workspace"
+                    mode: generation
+                    tool:
+                      type: Syft
+                      spec:
+                        format: spdx-json
+                    source:
+                      type: repository
+                      spec:
+                        url: https://github.com/tejakummarikuntla/react-store
+                        variant_type: branch
+                        variant: time_stamp
+                    sbom_drift:
+                      base: repository
+                      spec:
+                        variant: main
+                    resources:
+                      limits:
+                        memory: 500Mi
+                        cpu: "0.5"
+          infrastructure:
+            type: KubernetesDirect
+            spec:
+              connectorRef: account.kubernetes_connector_for_at
+              namespace: ssca-at
+              automountServiceAccountToken: true
+              nodeSelector: {}
+              os: Linux
+          slsa_provenance:
+            enabled: false
+  identifier: SBOM_Drift_for_React_Store_with_workspace
+  name: SBOM Drift for React Store - with workspace
